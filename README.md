@@ -1,5 +1,7 @@
 # Which front-page news predicts stock market volatility? 1926 to 2016
 
+[![tests](https://github.com/aakashbansalgit/nvix-volatility-channels/actions/workflows/tests.yml/badge.svg)](https://github.com/aakashbansalgit/nvix-volatility-channels/actions/workflows/tests.yml)
+
 Manela and Moreira (2017) built NVIX, a measure of uncertainty read off the front page of the Wall Street Journal back to 1889, and split it into word categories: securities markets, financial intermediation, government, war and natural disasters. This project asks which of those categories carries information about **future** market volatility, and whether option prices already contain it.
 
 The design rests on one fact about how NVIX was made. The text model was **fitted to implied volatility over 1996 to 2009**. Inside that window NVIX is partly a fitted copy of the VIX, so any test that uses those years to predict volatility is contaminated. Everything here is therefore estimated separately on four windows, and the conclusions come from the three the text model never saw.
@@ -63,6 +65,8 @@ python src/figures.py       # figures/
 ```
 
 Runs in under a minute on a laptop. Raw data are not redistributed; `download.py` fetches them from the original sources.
+
+`python -m pytest tests` runs without the data. It checks that every target looks forward and every control looks back, the realised variance calculation, and that changing any later month leaves earlier real-time forecasts unchanged.
 
 ## Results files
 
